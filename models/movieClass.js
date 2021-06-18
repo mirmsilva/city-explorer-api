@@ -8,4 +8,4 @@ class Movie{
   }
 }
 
-module.export={Movie};
+module.exports = Movie;

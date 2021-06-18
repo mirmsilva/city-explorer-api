@@ -2,10 +2,10 @@
 const axios = require('axios');
 
 //import classes
-const Forecast = require('../models/Forecast.js')
+const Forecast = require('../models/weatherClass.js')
 
 //weather
-app.get('/weather', async (req,res)=>{
+let weather = async (req,res)=>{
   let lat= req.query.lat;
   let lon = req.query.lon;
 
@@ -18,7 +18,7 @@ app.get('/weather', async (req,res)=>{
     
     res.send(cityForecast);
   }
-})
+}
 
 //export
-module.exports={weather};
+module.exports=weather;

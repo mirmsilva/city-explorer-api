@@ -8,4 +8,4 @@ class Forecast{
   }
 }
 
-module.export={Forecast};
+module.exports = Forecast;

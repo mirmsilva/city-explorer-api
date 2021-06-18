@@ -2,10 +2,10 @@
 const axios = require('axios');
 
 //import classes
-const Movie = require('../models/Movie.js')
+const Movie = require('../models/movieClass.js')
 
 //Movie 
-app.get('/movie', async (req,res)=>{
+let movie = async (req,res)=>{
   let city = req.query.city_name;
 
   let cityMovieData = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${city}`);
@@ -16,7 +16,7 @@ app.get('/movie', async (req,res)=>{
     console.log(movieData);
     res.send(movieData);
   }
-})
+}
 
 //export
-module.exports={movie};
+module.exports=movie;
