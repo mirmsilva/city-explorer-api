@@ -12,7 +12,7 @@ app.use(cors());
 const PORT = process.env.PORT;
 //--------------------------------------------------------------
 //what route our server should be listening for
-const weatherData = require('./data/weather.json');
+const weatherData = require('../data/weather.json');
 
 //Tester
 app.get('/',(req,res)=>{
