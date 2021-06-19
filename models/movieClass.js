@@ -1,10 +1,10 @@
 //class for Movie
 class Movie{
-  constructor(m){
-    this.title = m.movie.title;
-    this.overview = m.movie.overview;
-    this.vote_average = m.movie.vote_average;
-    this.vote_count = m.movie.vote_count;
+  constructor(title, overview, vote_average, vote_count){
+    this.title = title;
+    this.overview = overview;
+    this.vote_average = vote_average;
+    this.vote_count = vote_count;
   }
 }
 

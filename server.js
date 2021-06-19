@@ -5,13 +5,14 @@ const express = require('express');
 const app = express();
 
 require('dotenv').config();
-
 const cors = require('cors');
+
 
 //import weather & movie
 const weather = require('./routeHandlers/weatherData.js');
-const movie = require('./routeHandlers/movieData.js');
+const getMovies = require('./routeHandlers/movieData.js');
 app.use(cors());
+
 
 const PORT = process.env.PORT;
 
@@ -34,17 +35,7 @@ function weatherHandler(request, response) {
   });
 }  
 
-app.get('/movie', movieHandler);
-
-function movieHandler(request, response) {
-  const { city_name } = request.query;
-  movie(city_name)
-  .then(summaries => response.send(summaries))
-  .catch((error) => {
-    console.error(error);
-    response.status(200).send('Sorry. Something went wrong while we fetched the movie info!')
-  });
-}  
+app.get('/movie', getMovies);
 
 //catch all error message
 app.get('/*', (req, res)=>{
