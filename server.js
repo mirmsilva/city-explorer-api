@@ -7,26 +7,49 @@ const app = express();
 require('dotenv').config();
 
 const cors = require('cors');
-const { weather } = require('./routeHandlers/weatherData');
-const { movie } = require('./routeHandlers/movieData');
+
+//import weather & movie
+const weather = require('./routeHandlers/weatherData.js');
+const movie = require('./routeHandlers/movieData.js');
 app.use(cors());
 
 const PORT = process.env.PORT;
 
 //--------------------------------------------------------------
 
-//Tester
+//tester
 app.get('/',(req,res)=>{
-  res.send('This is working!');
+  res.send('This is working!');});
+
+//get weather & movie
+app.get('/weather', weatherHandler);
+
+function weatherHandler(request, response) {
+  const { lat, lon } = request.query;
+  weather(lat, lon)
+  .then(summaries => response.send(summaries))
+  .catch((error) => {
+    console.error(error);
+    response.status(200).send('Sorry. Something went wrong while we fetched the weather!')
+  });
+}  
+
+app.get('/movie', movieHandler);
+
+function movieHandler(request, response) {
+  const { city_name } = request.query;
+  movie(city_name)
+  .then(summaries => response.send(summaries))
+  .catch((error) => {
+    console.error(error);
+    response.status(200).send('Sorry. Something went wrong while we fetched the movie info!')
+  });
+}  
+
+//catch all error message
+app.get('/*', (req, res)=>{
+  res.status(404).send('Hmm...Something Went Wrong!')
 });
 
-//get data from routeHandler
-app.get('/weather', weather);
-app.get('/movie', movie);
-
-//Catch All Error Message
-app.get('/*', (request, response)=>{
-  response.status(404).send('Hmm...Something Went Wrong!')
-});
-//tell the server to start listening for requests
+//listener
 app.listen(PORT, () => {console.log(`listening on port ${PORT}`)});
